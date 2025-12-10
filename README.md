@@ -1,2 +1,2 @@
-# Modelo_Markowitz
-Optimizacion esperanza/varianza de un conjunto acciones del sp500
+# Tesina de grado
+Nicolas Ortiz 01/06/2025
