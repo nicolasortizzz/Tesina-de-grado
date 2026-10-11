@@ -21,6 +21,9 @@ The project connects three lines of work:
 | `RCBC.ipynb` | Notes and charts for cycle indicators; plots OECD output gap from local CSV |
 | `Graficos/graficos.ipynb` | Thesis figures: RCBC quadrant map, Markowitz risk–return sketch, sector-pair tables by phase |
 | `Graficos/OECDevolucion.csv` | Annual OECD output-gap series (column `Value`, years in `Date`) |
+| `portfolio_data.py` | Shared `obtener_precios_activos()` helper used by `MarkowitzPortafolio.ipynb` |
+| `tesina_data.py` | `load_oecd_output_gap()` loader (repo-relative path to `Graficos/OECDevolucion.csv`) |
+| `scripts/validate_notebooks.py` | JSON + `nbformat` validation for all notebooks |
 
 Static image `Graficos/MarkImage.png` is referenced in `MarkowitzPortafolio.ipynb` but is not included in this repository; the notebook still contains an executed efficient-frontier plot in its outputs.
 
@@ -86,7 +89,7 @@ The bundled series includes pronounced negative gaps in **2009** (≈ −4.02) a
 
 ### Fundamental panel (`AnalisisFundamental.ipynb`)
 
-The saved run builds a **51-row** comparison table (tickers such as UNH, MSFT, NVDA, AMZN, etc.) with Yahoo-derived fields and computed WACC, ROIC, and Roic/WACC. Example stored figures: NVDA trailing P/E ≈ 43.3, MSFT market cap ≈ 3.56×10¹² USD; many rows include dividend and correlation columns as defined in the notebook.
+The saved static table shows **50 rows** (tickers such as UNH, MSFT, NVDA, AMZN, etc.) with Yahoo-derived fields and computed WACC, ROIC, and Roic/WACC. Example stored figures: NVDA trailing P/E ≈ 43.3 and market cap ≈ 4.26×10¹² USD; MSFT market cap ≈ 3.56×10¹² USD; many rows include dividend and correlation columns as defined in the notebook.
 
 ### Sector rotation tables (`Graficos/graficos.ipynb`)
 
@@ -101,6 +104,12 @@ Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
+
+Validate notebook files (without re-executing):
+
+```bash
+python scripts/validate_notebooks.py
 ```
 
 ## How to run
@@ -120,7 +129,7 @@ Open notebooks in this order if you are exploring the thesis flow:
 3. `MarkowitzPortafolio.ipynb` — needs internet for `yfinance` downloads; Monte Carlo with 100k iterations may take a minute.
 4. `AnalisisFundamental.ipynb` — needs internet; run all cells before the dashboard cell; use a local Jupyter kernel for `ipywidgets`.
 
-**Paths:** Run `RCBC.ipynb` from the repo root so `Graficos/OECDevolucion.csv` resolves. Other notebooks assume imports from their own directory or root as written.
+**Paths:** `RCBC.ipynb` and `tesina_data.load_oecd_output_gap()` resolve `Graficos/OECDevolucion.csv` from the repository root via `tesina_data.py`. Run `MarkowitzPortafolio.ipynb` from the repo root so `from portfolio_data import …` works. Each notebook includes markdown sections (intro, data, methodology, analysis, conclusions) for easier navigation on GitHub.
 
 ## Limitations
 
